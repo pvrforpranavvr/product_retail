@@ -1,9 +1,6 @@
 package com.product.productretail.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,8 +14,13 @@ public class ProductEntity {
     private String brand;
     private String size;
     private long price;
-//    private ImageEntity principleImage;
-//    private List<ImageEntity> otherImages;
+    @OneToOne
+    @JoinColumn(name = "principleImageId", referencedColumnName = "id")
+    private ImageEntity principleImage;
+
+    @OneToMany
+    @JoinColumn(name = "otherImageId", referencedColumnName = "id")
+    private List<ImageEntity> otherImages;
 
     public long getId() {
         return id;
@@ -69,19 +71,19 @@ public class ProductEntity {
     }
 
 
-//    public ImageEntity getPrincipleImage() {
-//        return principleImage;
-//    }
-//
-//    public void setPrincipleImage(ImageEntity principleImage) {
-//        this.principleImage = principleImage;
-//    }
-//
-//    public List<ImageEntity> getOtherImages() {
-//        return otherImages;
-//    }
-//
-//    public void setOtherImages(List<ImageEntity> otherImages) {
-//        this.otherImages = otherImages;
-//    }
+    public ImageEntity getPrincipleImage() {
+        return principleImage;
+    }
+
+    public void setPrincipleImage(ImageEntity principleImage) {
+        this.principleImage = principleImage;
+    }
+
+    public List<ImageEntity> getOtherImages() {
+        return otherImages;
+    }
+
+    public void setOtherImages(List<ImageEntity> otherImages) {
+        this.otherImages = otherImages;
+    }
 }
