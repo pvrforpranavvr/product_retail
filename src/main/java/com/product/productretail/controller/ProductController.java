@@ -50,7 +50,7 @@ public class ProductController {
 
         if (!StringUtils.hasText(product.getName())) {
 
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "name requied");
+            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "name required");
         } else if (product.getName().length() < 3 && product.getName().length() > 50) {
 
             throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "product name min 3 and 50");
