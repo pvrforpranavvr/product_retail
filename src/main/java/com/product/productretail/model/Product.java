@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Product {
 
-    private int id;
+    private long id;
     private long sku;
     private String name;
     private String brand;
@@ -13,11 +13,11 @@ public class Product {
     private String principleImage;
     private List<String> otherImages;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

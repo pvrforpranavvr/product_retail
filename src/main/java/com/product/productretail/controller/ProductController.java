@@ -4,11 +4,14 @@ import com.product.productretail.exception.ProductRetailException;
 import com.product.productretail.model.Product;
 import com.product.productretail.model.Response;
 import com.product.productretail.service.ProductService;
+import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProductController {
@@ -39,6 +42,12 @@ public class ProductController {
         }
 
         return new ResponseEntity<>(new Response("Deleted"), HttpStatus.OK);
+    }
+
+    @GetMapping("${version}/product")
+    public ResponseEntity<List<Product>> getAll() throws ProductRetailException {
+
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
     private void validate(Product product) throws ProductRetailException {

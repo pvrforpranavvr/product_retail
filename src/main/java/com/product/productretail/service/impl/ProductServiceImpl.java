@@ -47,9 +47,9 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setPrice(product.getPrice());
 //        productEntity.setOtherImages(savedImage);
 
-      ProductEntity productEntity1=  productRepository.save(productEntity);
+        ProductEntity productEntity1 = productRepository.save(productEntity);
 
-        List<ImageEntity> savedImage = imageService.createAll(createAllImageEntity(product.getOtherImages(),productEntity));
+        List<ImageEntity> savedImage = imageService.createAll(createAllImageEntity(product.getOtherImages(), productEntity));
 
 
         return product;
@@ -67,7 +67,31 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
-    private List<ImageEntity> createAllImageEntity(List<String> otherImages,ProductEntity productEntity) {
+    @Override
+    public List<Product> getAll() {
+
+        List<ProductEntity> productEntities = productRepository.findAll();
+        List<Product> products = new ArrayList<>();
+
+        for (ProductEntity productEntity : productEntities) {
+
+            Product product = new Product();
+
+            product.setName(productEntity.getName());
+            product.setBrand(productEntity.getBrand());
+            product.setId(productEntity.getProductId());
+            product.setPrincipleImage(productEntity.getPrincipleImage());
+            product.setPrice(productEntity.getPrice());
+            product.setSize(productEntity.getSize());
+            product.setSku(productEntity.getSku());
+
+            products.add(product);
+        }
+
+        return products;
+    }
+
+    private List<ImageEntity> createAllImageEntity(List<String> otherImages, ProductEntity productEntity) {
 
         List<ImageEntity> imageEntities = new ArrayList<>();
 
