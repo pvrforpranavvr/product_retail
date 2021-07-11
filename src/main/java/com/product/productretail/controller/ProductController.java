@@ -27,7 +27,7 @@ public class ProductController {
     }
 
     @DeleteMapping("${version}/product/{sku}")
-    public ResponseEntity<Response> delete(@PathVariable long sku) throws ProductRetailException {
+    public ResponseEntity<Response> deleteBySku(@PathVariable long sku) throws ProductRetailException {
 
         if (sku == 0L) {
 
@@ -35,7 +35,7 @@ public class ProductController {
 
         } else {
 
-            productService.delete(sku);
+            productService.deleteBySku(sku);
         }
 
         return new ResponseEntity<>(new Response("Deleted"), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class ProductController {
             throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "brand required");
         } else if (product.getBrand().length() < 3 && product.getBrand().length() > 50) {
 
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "product name min 3 and 50");
+            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "product brand min 3 and 50");
         }
 
 

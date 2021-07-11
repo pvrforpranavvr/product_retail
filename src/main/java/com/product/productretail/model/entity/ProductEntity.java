@@ -8,26 +8,22 @@ public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long productId;
     private long sku;
     private String name;
     private String brand;
     private String size;
     private long price;
-    @OneToOne
-    @JoinColumn(name = "principleImageId", referencedColumnName = "id")
-    private ImageEntity principleImage;
-
-    @OneToMany
-    @JoinColumn(name = "otherImageId", referencedColumnName = "id")
+    private String principleImage;
+    @OneToMany(targetEntity = ImageEntity.class,mappedBy = "productEntity")
     private List<ImageEntity> otherImages;
 
-    public long getId() {
-        return id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public long getSku() {
@@ -71,11 +67,11 @@ public class ProductEntity {
     }
 
 
-    public ImageEntity getPrincipleImage() {
+    public String getPrincipleImage() {
         return principleImage;
     }
 
-    public void setPrincipleImage(ImageEntity principleImage) {
+    public void setPrincipleImage(String principleImage) {
         this.principleImage = principleImage;
     }
 

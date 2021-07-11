@@ -5,7 +5,6 @@ public class ProductRetailException extends Exception {
     public static final String BUSINESS_EXCEPTION = "Business Exception";
     public static final String TECHNICAL_ERROR = "Technical Error";
     public static final String REST_CALL_EXCEPTION = "Rest Call Exception";
-    public static final String AUTH_EXCEPTION = "Authentication Exception";
     public static final String INVALID_REQUEST_ERROR = "Invalid Request Error";
 
 

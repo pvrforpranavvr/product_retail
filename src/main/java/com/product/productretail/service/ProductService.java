@@ -6,5 +6,5 @@ public interface ProductService {
 
     Product create(Product product);
 
-    boolean delete(long sku);
+    boolean deleteBySku(long sku);
 }

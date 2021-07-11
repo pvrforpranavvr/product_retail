@@ -9,9 +9,11 @@ import com.product.productretail.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -32,9 +34,8 @@ public class ProductServiceImpl implements ProductService {
 
         imageEntity.setImageUrl(product.getPrincipleImage());
 
-        imageService.create(imageEntity);
+//        imageService.create(imageEntity);
 
-        List<ImageEntity> savedImage = imageService.createAll(createAllImageEntity(product.getOtherImages()));
 
         ProductEntity productEntity = new ProductEntity();
 
@@ -42,32 +43,42 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setName(product.getName());
         productEntity.setBrand(product.getBrand());
         productEntity.setSize(product.getSize());
-        productEntity.setPrincipleImage(imageEntity);
-        productEntity.setOtherImages(savedImage);
-
-        productRepository.save(productEntity);
-
+        productEntity.setPrincipleImage(product.getPrincipleImage());
         productEntity.setPrice(product.getPrice());
+//        productEntity.setOtherImages(savedImage);
+
+      ProductEntity productEntity1=  productRepository.save(productEntity);
+
+        List<ImageEntity> savedImage = imageService.createAll(createAllImageEntity(product.getOtherImages(),productEntity));
+
 
         return product;
     }
 
     @Override
-    public boolean delete(long sku) {
+    public boolean deleteBySku(long sku) {
 
-        return productRepository.deleteBySku(sku);
+        int deleted = productRepository.deleteBySku(sku);
+        if (deleted == 0) {
+
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    private List<ImageEntity> createAllImageEntity(List<String> otherImages) {
+    private List<ImageEntity> createAllImageEntity(List<String> otherImages,ProductEntity productEntity) {
 
         List<ImageEntity> imageEntities = new ArrayList<>();
 
-        ImageEntity otherImage = new ImageEntity();
-
-
         for (String otherImgae : otherImages) {
 
+            ImageEntity otherImage = new ImageEntity();
+
             otherImage.setImageUrl(otherImgae);
+            otherImage.setProductEntity(productEntity);
+
+            imageEntities.add(otherImage);
         }
 
         return imageEntities;

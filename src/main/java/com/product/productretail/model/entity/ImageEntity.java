@@ -1,24 +1,32 @@
 package com.product.productretail.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class ImageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long imgId;
+    @ManyToOne
+    @JoinColumn(name = "productEntity_Id",referencedColumnName = "productId")
+    private ProductEntity productEntity;
     private String imageUrl;
 
-    public long getId() {
-        return id;
+    public long getImgId() {
+        return imgId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setImgId(long imgId) {
+        this.imgId = imgId;
+    }
+
+    public ProductEntity getProductEntity() {
+        return productEntity;
+    }
+
+    public void setProductEntity(ProductEntity productEntity) {
+        this.productEntity = productEntity;
     }
 
     public String getImageUrl() {

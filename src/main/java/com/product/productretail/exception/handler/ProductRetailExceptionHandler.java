@@ -2,7 +2,6 @@ package com.product.productretail.exception.handler;
 
 import com.product.productretail.exception.ProductRetailException;
 import com.product.productretail.model.ErrorResponse;
-import com.product.productretail.model.entity.ProductEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,9 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ProductRetailExceptionHandler {
 
-
     @ExceptionHandler(ProductRetailException.class)
-    public ResponseEntity<ErrorResponse> handlePersonLookupException(HttpServletRequest req, ProductRetailException ex) {
+    public ResponseEntity<ErrorResponse> handleProductRetailException(HttpServletRequest req, ProductRetailException ex) {
 
         HttpStatus httpStatus;
         if (ex.getExceptionName().equals(ProductRetailException.INVALID_REQUEST_ERROR)
