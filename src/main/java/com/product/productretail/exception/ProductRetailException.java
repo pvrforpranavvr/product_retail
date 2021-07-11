@@ -7,7 +7,6 @@ public class ProductRetailException extends Exception {
     public static final String REST_CALL_EXCEPTION = "Rest Call Exception";
     public static final String INVALID_REQUEST_ERROR = "Invalid Request Error";
 
-
     private final String exceptionName;
     private final String exceptionMsg;
 

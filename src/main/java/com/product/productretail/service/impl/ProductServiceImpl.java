@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -30,13 +31,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product create(Product product) {
 
-        ImageEntity imageEntity = new ImageEntity();
-
-        imageEntity.setImageUrl(product.getPrincipleImage());
-
-//        imageService.create(imageEntity);
-
-
         ProductEntity productEntity = new ProductEntity();
 
         productEntity.setSku(product.getSku());
@@ -45,12 +39,10 @@ public class ProductServiceImpl implements ProductService {
         productEntity.setSize(product.getSize());
         productEntity.setPrincipleImage(product.getPrincipleImage());
         productEntity.setPrice(product.getPrice());
-//        productEntity.setOtherImages(savedImage);
 
-        ProductEntity productEntity1 = productRepository.save(productEntity);
+        productRepository.save(productEntity);
 
-        List<ImageEntity> savedImage = imageService.createAll(createAllImageEntity(product.getOtherImages(), productEntity));
-
+        imageService.createAll(createAllImageEntity(product.getOtherImages(), productEntity));
 
         return product;
     }
@@ -59,12 +51,7 @@ public class ProductServiceImpl implements ProductService {
     public boolean deleteBySku(long sku) {
 
         int deleted = productRepository.deleteBySku(sku);
-        if (deleted == 0) {
-
-            return false;
-        } else {
-            return true;
-        }
+        return deleted != 0;
     }
 
     @Override
@@ -84,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(productEntity.getPrice());
             product.setSize(productEntity.getSize());
             product.setSku(productEntity.getSku());
-
+            product.setOtherImages(productEntity.getOtherImages().stream().map(ImageEntity::getImageUrl).collect(Collectors.toList()));
             products.add(product);
         }
 

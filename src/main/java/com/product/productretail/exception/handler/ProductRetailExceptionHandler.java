@@ -36,4 +36,11 @@ public class ProductRetailExceptionHandler {
         }
         return new ResponseEntity<>(new ErrorResponse(exceptionName, ex.getMessage()), httpStatus);
     }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<ErrorResponse> handleParentException(HttpServletRequest req, Throwable ex) {
+
+        ex.printStackTrace();
+        return new ResponseEntity<>(new ErrorResponse(ProductRetailException.TECHNICAL_ERROR, "Please contact support team"), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

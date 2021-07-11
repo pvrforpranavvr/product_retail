@@ -9,7 +9,7 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long imgId;
     @ManyToOne
-    @JoinColumn(name = "productEntity_Id",referencedColumnName = "productId")
+    @JoinColumn(name = "productEntityId", referencedColumnName = "productId")
     private ProductEntity productEntity;
     private String imageUrl;
 

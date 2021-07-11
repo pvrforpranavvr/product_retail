@@ -9,13 +9,14 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long productId;
+    @Column(unique = true)
     private long sku;
     private String name;
     private String brand;
     private String size;
     private long price;
     private String principleImage;
-    @OneToMany(targetEntity = ImageEntity.class,mappedBy = "productEntity")
+    @OneToMany(targetEntity = ImageEntity.class, mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<ImageEntity> otherImages;
 
     public long getProductId() {
