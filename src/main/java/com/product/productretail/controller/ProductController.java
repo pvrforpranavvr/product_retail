@@ -31,11 +31,11 @@ public class ProductController {
     }
 
     @DeleteMapping("${version}/product/{sku}")
-    public ResponseEntity<Response> deleteBySku(@PathVariable long sku) throws ProductRetailException {
+    public ResponseEntity<Response> deleteBySku(@PathVariable int sku) throws ProductRetailException {
 
-        if (sku == 0L) {
+        if (sku < 1000000 || sku > 99999999) {
 
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "sku required");
+            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "sku must be between 1000000 and 99999999");
 
         } else {
 

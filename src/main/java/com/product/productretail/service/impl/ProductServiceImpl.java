@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteBySku(long sku) {
+    public boolean deleteBySku(int sku) {
 
         int deleted = productRepository.deleteBySku(sku);
         return deleted != 0;

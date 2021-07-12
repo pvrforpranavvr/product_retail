@@ -8,7 +8,7 @@ public interface ProductService {
 
     Product create(Product product);
 
-    boolean deleteBySku(long sku);
+    boolean deleteBySku(int sku);
 
     List<Product> getAll();
 }
