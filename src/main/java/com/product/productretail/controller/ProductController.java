@@ -7,9 +7,9 @@ import com.product.productretail.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,9 +23,7 @@ public class ProductController {
     }
 
     @PostMapping("${version}/product")
-    public ResponseEntity<Product> create(@RequestBody Product product) throws ProductRetailException {
-
-        validate(product);
+    public ResponseEntity<Product> create(@Valid @RequestBody Product product) throws ProductRetailException {
 
         productService.create(product);
 
@@ -53,29 +51,4 @@ public class ProductController {
         return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
-    private void validate(Product product) throws ProductRetailException {
-
-        if (product.getSku() < 1000000 && product.getSku() > 99999999) {
-
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "sku min 1000000 and 99999999");
-        }
-
-        if (!StringUtils.hasText(product.getName())) {
-
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "name required");
-        } else if (product.getName().length() < 3 && product.getName().length() > 50) {
-
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "product name min 3 and 50");
-        }
-
-
-        if (!StringUtils.hasText(product.getBrand())) {
-
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "brand required");
-        } else if (product.getBrand().length() < 3 && product.getBrand().length() > 50) {
-
-            throw new ProductRetailException(ProductRetailException.BUSINESS_EXCEPTION, "product brand min 3 and 50");
-        }
-
-    }
 }

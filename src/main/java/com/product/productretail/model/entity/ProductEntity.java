@@ -10,11 +10,11 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long productId;
     @Column(unique = true)
-    private long sku;
+    private int sku;
     private String name;
     private String brand;
     private String size;
-    private long price;
+    private int price;
     private String principleImage;
     @OneToMany(targetEntity = ImageEntity.class, mappedBy = "productEntity", cascade = CascadeType.ALL)
     private List<ImageEntity> otherImages;
@@ -27,11 +27,11 @@ public class ProductEntity {
         this.productId = productId;
     }
 
-    public long getSku() {
+    public int getSku() {
         return sku;
     }
 
-    public void setSku(long sku) {
+    public void setSku(int sku) {
         this.sku = sku;
     }
 
@@ -59,14 +59,13 @@ public class ProductEntity {
         this.size = size;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
-
 
     public String getPrincipleImage() {
         return principleImage;

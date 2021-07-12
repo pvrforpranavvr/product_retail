@@ -1,15 +1,26 @@
 package com.product.productretail.model;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Product {
 
     private long id;
-    private long sku;
+    @Range(min = 1000000, max = 99999999, message = "sku must be between 1000000 and 99999999")
+    private int sku;
+    @NotEmpty(message = "Name required")
     private String name;
+    @NotEmpty(message = "Brand required")
     private String brand;
+    @NotBlank
     private String size;
-    private long price;
+    @Range(min = 1, max = 99999999, message = "price must be between 1 and 99999999")
+    private int price;
+    @NotBlank
     private String principleImage;
     private List<String> otherImages;
 
@@ -21,11 +32,11 @@ public class Product {
         this.id = id;
     }
 
-    public long getSku() {
+    public int getSku() {
         return sku;
     }
 
-    public void setSku(long sku) {
+    public void setSku(int sku) {
         this.sku = sku;
     }
 
@@ -53,11 +64,11 @@ public class Product {
         this.size = size;
     }
 
-    public long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

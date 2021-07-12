@@ -6,6 +6,7 @@ public class ErrorResponse {
 
     private String errorName;
     private String errorMessage;
+    private List<String> errorMessages;
 
     public ErrorResponse() {
     }
@@ -17,6 +18,7 @@ public class ErrorResponse {
 
     public ErrorResponse(String errorName, List<String> errorMessages) {
         this.errorName = errorName;
+        this.errorMessages = errorMessages;
     }
 
     public String getErrorName() {
@@ -35,5 +37,12 @@ public class ErrorResponse {
         this.errorMessage = errorMessage;
     }
 
+    public List<String> getErrorMessages() {
+        return errorMessages;
+    }
+
+    public void setErrorMessages(List<String> errorMessages) {
+        this.errorMessages = errorMessages;
+    }
 }
 
